@@ -60,11 +60,12 @@ export default function Home() {
         id="hero"
         className="relative px-5 pt-28 pb-14 sm:px-8 sm:pt-36 lg:px-10 lg:pb-20"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[1.08fr_0.92fr]">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: "easeOut" }}
+            className="order-2 lg:order-1"
           >
             <div className="mb-6 inline-flex -rotate-1 items-center gap-2 rounded-lg border-2 border-zinc-950 bg-lime-300 px-4 py-2 font-mono text-sm font-black uppercase tracking-[0.18em] text-zinc-950 shadow-[6px_6px_0_#18181b] dark:border-white dark:shadow-[6px_6px_0_#22d3ee]">
               <Zap size={16} />
@@ -81,99 +82,54 @@ export default function Home() {
               experience building animated, accessible, high-performance
               interfaces with React, Next.js, TypeScript, and Tailwind CSS.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#projects"
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-lg bg-zinc-950 px-7 text-sm font-black uppercase tracking-[0.14em] text-white shadow-[7px_7px_0_#22d3ee] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#d946ef] dark:bg-white dark:text-zinc-950"
-              >
-                See the work <Rocket size={18} />
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-lg border-2 border-zinc-950 bg-white/80 px-7 text-sm font-black uppercase tracking-[0.14em] text-zinc-950 backdrop-blur transition hover:-translate-y-1 hover:bg-lime-300 dark:border-white dark:bg-white/10 dark:text-white dark:hover:bg-fuchsia-500"
-              >
-                Start a build <Mail size={18} />
-              </a>
-            </div>
-            <div className="mt-9 grid max-w-2xl grid-cols-3 gap-3">
-              {stats.map(([value, label]) => (
-                <div
-                  key={label}
-                  className="rounded-lg border-2 border-zinc-950 bg-white/75 p-4 shadow-[4px_4px_0_rgba(24,24,27,0.9)] backdrop-blur dark:border-white dark:bg-white/10 dark:shadow-[4px_4px_0_rgba(163,230,53,0.7)]"
-                >
-                  <p className="text-3xl font-black">{value}</p>
-                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-zinc-600 dark:text-zinc-300">
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
 
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, rotate: 3, scale: 0.94 }}
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             transition={{ duration: 0.72, delay: 0.1, ease: "easeOut" }}
-            className="relative"
+            className="order-1 lg:order-2 relative h-[480px] w-full"
           >
-            <div className="absolute -right-4 -top-4 hidden rounded-lg bg-fuchsia-500 px-4 py-3 font-mono text-sm font-black uppercase tracking-[0.16em] text-white shadow-[5px_5px_0_#18181b] sm:block">
-              UI in motion
+            <div className="absolute -right-4 -top-4 hidden rounded-lg bg-fuchsia-500 px-4 py-3 font-mono text-sm font-black uppercase tracking-[0.16em] text-white shadow-[5px_5px_0_#18181b] sm:block z-10">
+              Frontend Dev
             </div>
-            <div className="overflow-hidden rounded-lg border-2 border-zinc-950 bg-zinc-950 text-white shadow-[12px_12px_0_#22d3ee] dark:border-white dark:shadow-[12px_12px_0_#d946ef]">
-              <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-5 py-4">
-                <div className="flex gap-2">
-                  <span className="size-3 rounded-full bg-rose-400" />
-                  <span className="size-3 rounded-full bg-yellow-300" />
-                  <span className="size-3 rounded-full bg-lime-300" />
-                </div>
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-200">
-                  live-preview
-                </span>
-              </div>
-              <div className="scanline relative p-5 sm:p-6">
-                <div className="grid gap-4">
-                  <div className="rounded-lg border border-white/10 bg-white/[0.06] p-5">
-                    <div className="mb-4 flex items-center gap-3">
-                      <Braces className="text-lime-300" />
-                      <p className="font-mono text-sm text-zinc-300">
-                        component/velocity.tsx
-                      </p>
-                    </div>
-                    <pre className="overflow-hidden text-sm leading-7 text-zinc-200">
-                      <code>{`const craft = {
-  motion: "intentional",
-  layout: "responsive",
-  polish: "production-grade",
-  energy: "high"
-};`}</code>
-                    </pre>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="rounded-lg bg-cyan-300 p-4 text-zinc-950">
-                      <p className="text-sm font-black uppercase tracking-[0.16em]">
-                        Stack
-                      </p>
-                      <p className="mt-5 text-2xl font-black">Next + TS</p>
-                    </div>
-                    <div className="rounded-lg bg-lime-300 p-4 text-zinc-950">
-                      <p className="text-sm font-black uppercase tracking-[0.16em]">
-                        Focus
-                      </p>
-                      <p className="mt-5 text-2xl font-black">UX speed</p>
-                    </div>
-                  </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-white/10">
-                    <motion.div
-                      initial={{ width: "18%" }}
-                      animate={{ width: "92%" }}
-                      transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-                      className="h-full bg-[linear-gradient(90deg,#22d3ee,#a3e635,#facc15)]"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="relative h-full w-full overflow-hidden rounded-lg border-2 border-zinc-950 shadow-[12px_12px_0_#22d3ee] dark:border-white dark:shadow-[12px_12px_0_#d946ef]">
+              <Image
+                src="/myimage2.jpeg"
+                alt="Mohammad Tareeq Adnaan"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
           </motion.div>
+        </div>
+        <div className="mt-9 mx-auto max-w-6xl flex flex-wrap lg:flex-nowrap items-stretch gap-3 w-full">
+          <a
+            href="#projects"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-zinc-950 px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[5px_5px_0_#22d3ee] transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#d946ef] dark:bg-white dark:text-zinc-950 flex-1 text-center"
+          >
+            See the work <Rocket size={16} />
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border-2 border-zinc-950 bg-white/80 px-4 text-xs font-black uppercase tracking-[0.12em] text-zinc-950 backdrop-blur transition hover:-translate-y-1 hover:bg-lime-300 dark:border-white dark:bg-white/10 dark:text-white dark:hover:bg-fuchsia-500 flex-1 text-center"
+          >
+            Start a build <Mail size={16} />
+          </a>
+
+          {stats.map(([value, label]) => (
+            <div
+              key={label}
+              className="rounded-lg border-2 border-zinc-950 bg-white/75 p-2 shadow-[3px_3px_0_rgba(24,24,27,0.9)] backdrop-blur dark:border-white dark:bg-white/10 dark:shadow-[3px_3px_0_rgba(163,230,53,0.7)] flex flex-col justify-center text-center flex-1"
+            >
+              <p className="text-xl font-black leading-none">{value}</p>
+              <p className="text-[8px] font-black uppercase tracking-[0.06em] text-zinc-600 dark:text-zinc-300 mt-1 leading-none">
+                {label}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
