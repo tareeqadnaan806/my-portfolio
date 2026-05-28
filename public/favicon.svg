@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Thick Neo-Brutalist Offset Shadow -->
+  <rect x="5" y="5" width="23" height="23" rx="5" fill="#18181b" />
+  <!-- Main Front Card (Lime Green) -->
+  <rect x="2" y="2" width="23" height="23" rx="5" fill="#a3e635" stroke="#18181b" stroke-width="2" />
+  <!-- Bold Branding Initial 'A' -->
+  <text x="13.5" y="18" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="15" fill="#18181b" text-anchor="middle">A</text>
+</svg>
