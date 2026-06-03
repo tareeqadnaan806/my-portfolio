@@ -32,6 +32,23 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    // Add a tiny delay to allow the mobile drawer menu closing animation/state to start
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        window.history.pushState(null, "", `#${id}`);
+      }
+    }, 10);
+  };
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fffaf1] text-zinc-950 transition-colors dark:bg-[#050505] dark:text-white">
       <div className="energy-grid pointer-events-none fixed inset-0 -z-20 opacity-80" />
@@ -41,6 +58,7 @@ export default function Home() {
         <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <a
             href="#hero"
+            onClick={(e) => scrollToSection(e, "hero")}
             className="group flex items-center gap-2 font-mono text-sm font-black uppercase tracking-[0.2em]"
           >
             <span className="grid size-8 place-items-center rounded-lg bg-zinc-950 text-white transition group-hover:bg-fuchsia-600 dark:bg-white dark:text-zinc-950 dark:group-hover:bg-lime-300">
@@ -53,6 +71,7 @@ export default function Home() {
               <a
                 key={item}
                 href={`#${item}`}
+                onClick={(e) => scrollToSection(e, item)}
                 className="rounded-full px-3 py-2 capitalize transition hover:bg-zinc-950 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950"
               >
                 {item}
@@ -85,11 +104,7 @@ export default function Home() {
                   <a
                     key={item}
                     href={`#${item}`}
-                    onClick={() => {
-                      setTimeout(() => {
-                        setIsMobileMenuOpen(false);
-                      }, 100);
-                    }}
+                    onClick={(e) => scrollToSection(e, item)}
                     className="rounded-lg px-4 py-3 capitalize transition hover:bg-zinc-950 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950"
                   >
                     {item}
@@ -152,14 +167,16 @@ export default function Home() {
         </div>
         <div className="mt-9 mx-auto max-w-6xl flex flex-col lg:flex-row items-stretch gap-3 w-full">
           <div className="grid grid-cols-2 gap-3 w-full lg:contents">
-            <a
+             <a
               href="#projects"
+              onClick={(e) => scrollToSection(e, "projects")}
               className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-zinc-950 px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[5px_5px_0_#22d3ee] transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#d946ef] dark:bg-white dark:text-zinc-950 flex-1 text-center"
             >
               See the work <Rocket size={16} />
             </a>
             <a
               href="#contact"
+              onClick={(e) => scrollToSection(e, "contact")}
               className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border-2 border-zinc-950 bg-white/80 px-4 text-xs font-black uppercase tracking-[0.12em] text-zinc-950 backdrop-blur transition hover:-translate-y-1 hover:bg-lime-300 dark:border-white dark:bg-white/10 dark:text-white dark:hover:bg-fuchsia-500 flex-1 text-center"
             >
               Start a build <Mail size={16} />
