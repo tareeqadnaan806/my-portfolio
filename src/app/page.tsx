@@ -13,6 +13,7 @@ import {
   Zap,
   Menu,
   X,
+  Download,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MotionCard } from "@/components/MotionCard";
@@ -29,6 +30,7 @@ const stats = [
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fffaf1] text-zinc-950 transition-colors dark:bg-[#050505] dark:text-white">
@@ -210,11 +212,28 @@ export default function Home() {
             delay={0.08}
             className="rounded-lg border-2 border-zinc-950 bg-cyan-200 p-6 text-lg font-semibold leading-8 text-zinc-950 shadow-[8px_8px_0_#d946ef] dark:border-white dark:bg-cyan-300 dark:shadow-[8px_8px_0_#facc15]"
           >
-            I care about the moments users actually feel: the instant a page
-            loads, the clarity of a dashboard, the motion after a click, and the
-            confidence that the interface works on every screen. My work blends
-            product thinking, clean component architecture, and polished visual
-            execution.
+            <p>
+              I care about the moments users actually feel: the instant a page
+              loads, the clarity of a dashboard, the motion after a click, and the
+              confidence that the interface works on every screen. My work blends
+              product thinking, clean component architecture, and polished visual
+              execution.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button
+                onClick={() => setIsResumeModalOpen(true)}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-zinc-950 px-5 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[3px_3px_0_#d946ef] transition hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#d946ef] active:translate-y-[1px] active:shadow-[2px_2px_0_#d946ef] cursor-pointer dark:bg-white dark:text-zinc-950 w-full"
+              >
+                View Resume <ArrowUpRight size={15} />
+              </button>
+              <a
+                href="/resume.pdf"
+                download="Mohammad_Tareeq_Adnaan_Resume.pdf"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-zinc-950 px-5 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[3px_3px_0_#d946ef] transition hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#d946ef] active:translate-y-[1px] active:shadow-[2px_2px_0_#d946ef] cursor-pointer dark:bg-white dark:text-zinc-950 w-full"
+              >
+                Download PDF <Download size={15} />
+              </a>
+            </div>
           </MotionCard>
         </div>
       </Section>
@@ -394,6 +413,55 @@ export default function Home() {
       <footer className="border-t-2 border-zinc-950 bg-[#fffaf1] px-5 py-8 text-center font-mono text-sm font-black uppercase tracking-[0.16em] text-zinc-700 dark:border-white dark:bg-[#050505] dark:text-zinc-300">
         Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion.
       </footer>
+
+      <AnimatePresence>
+        {isResumeModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 p-4 backdrop-blur-sm dark:bg-zinc-950/80"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              className="relative flex h-[85vh] w-full max-w-4xl flex-col rounded-xl border-4 border-zinc-950 bg-white shadow-[12px_12px_0_#000] dark:border-white dark:bg-zinc-900"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b-4 border-zinc-950 bg-lime-300 p-4 dark:border-white dark:bg-zinc-800">
+                <span className="font-mono text-xs font-black uppercase tracking-[0.16em] text-zinc-950 dark:text-white">
+                  {profile.name} - Resume
+                </span>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="/resume.pdf"
+                    download="Mohammad_Tareeq_Adnaan_Resume.pdf"
+                    className="inline-flex h-8 items-center justify-center gap-1.5 rounded bg-zinc-950 px-3 text-[10px] font-black uppercase tracking-[0.12em] text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 active:translate-y-0 dark:bg-white dark:text-zinc-950"
+                  >
+                    Download <Download size={12} />
+                  </a>
+                  <button
+                    onClick={() => setIsResumeModalOpen(false)}
+                    className="grid size-8 place-items-center rounded-lg border-2 border-zinc-950 bg-white text-zinc-950 hover:bg-red-400 dark:border-white dark:bg-zinc-700 dark:text-white"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* PDF Preview Frame */}
+              <div className="flex-1 bg-zinc-100 p-2 dark:bg-zinc-800">
+                <iframe
+                  src="/resume.pdf"
+                  className="h-full w-full rounded border border-zinc-300 dark:border-zinc-700"
+                  title="Resume PDF Viewer"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
