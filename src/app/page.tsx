@@ -14,14 +14,17 @@ import {
   Menu,
   X,
   Download,
+  Sparkles,
+  Terminal,
+  Bot,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MotionCard } from "@/components/MotionCard";
 import { Section } from "@/components/Section";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { education, experience, profile, projects, skills } from "@/data/portfolio";
+import { education, experience, profile, projects, skills, exploring } from "@/data/portfolio";
 
-const navItems = ["about", "skills", "projects", "experience", "education", "contact"];
+const navItems = ["about", "skills", "exploring", "projects", "experience", "education", "contact"];
 const stats = [
   ["03", "Years building"],
   ["12+", "Interfaces shipped"],
@@ -269,6 +272,46 @@ export default function Home() {
               {skill}
             </MotionCard>
           ))}
+        </div>
+      </Section>
+
+      <Section id="exploring" eyebrow="Learning & Exploring" title="Currently Exploring">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {exploring.map((item, index) => {
+            const Icon = index === 0 ? Sparkles : index === 1 ? Terminal : Bot;
+            const colors = [
+              "from-fuchsia-500/20 via-transparent to-transparent text-fuchsia-600 dark:text-fuchsia-400 border-zinc-950 hover:border-fuchsia-500 dark:border-white dark:hover:border-fuchsia-400 shadow-[6px_6px_0_rgba(24,24,27,0.92)] hover:shadow-[6px_6px_0_rgba(217,70,239,0.85)] dark:shadow-[6px_6px_0_rgba(34,211,238,0.75)] dark:hover:shadow-[6px_6px_0_rgba(217,70,239,0.85)]",
+              "from-lime-500/20 via-transparent to-transparent text-lime-600 dark:text-lime-400 border-zinc-950 hover:border-lime-500 dark:border-white dark:hover:border-lime-400 shadow-[6px_6px_0_rgba(24,24,27,0.92)] hover:shadow-[6px_6px_0_rgba(132,204,22,0.85)] dark:shadow-[6px_6px_0_rgba(34,211,238,0.75)] dark:hover:shadow-[6px_6px_0_rgba(132,204,22,0.85)]",
+              "from-cyan-500/20 via-transparent to-transparent text-cyan-600 dark:text-cyan-400 border-zinc-950 hover:border-cyan-500 dark:border-white dark:hover:border-cyan-400 shadow-[6px_6px_0_rgba(24,24,27,0.92)] hover:shadow-[6px_6px_0_rgba(6,182,212,0.85)] dark:shadow-[6px_6px_0_rgba(34,211,238,0.75)] dark:hover:shadow-[6px_6px_0_rgba(6,182,212,0.85)]",
+            ];
+
+            return (
+              <MotionCard
+                key={item.title}
+                delay={index * 0.08}
+                className={`group relative overflow-hidden rounded-xl border-2 bg-gradient-to-br bg-white p-6 transition-all duration-300 dark:bg-white/[0.03] ${colors[index]}`}
+              >
+                <div className="absolute top-0 right-0 -mr-6 -mt-6 size-24 rounded-full bg-current opacity-[0.03] transition-all duration-500 group-hover:scale-150" />
+                
+                <div className="flex items-center gap-4">
+                  <div className="grid size-12 place-items-center rounded-lg border-2 border-zinc-950 bg-zinc-950 text-white transition-transform duration-300 group-hover:scale-110 dark:border-white dark:bg-white dark:text-zinc-950">
+                    <Icon size={22} />
+                  </div>
+                  <span className="font-mono text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
+                    Topic 0{index + 1}
+                  </span>
+                </div>
+                
+                <h3 className="mt-5 text-xl font-black leading-tight text-zinc-950 dark:text-white">
+                  {item.title}
+                </h3>
+                
+                <p className="mt-3 text-sm font-medium leading-6 text-zinc-700 dark:text-zinc-300">
+                  {item.description}
+                </p>
+              </MotionCard>
+            );
+          })}
         </div>
       </Section>
 

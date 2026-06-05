@@ -79,3 +79,19 @@ export const education = [
     period: "Graduated 2019",
   },
 ];
+
+export const exploring = [
+  {
+    title: "Generative AI Applications",
+    description: "Integrating Large Language Models (LLMs) with retrieval-augmented generation (RAG) and vector databases to build smart, context-aware web apps.",
+  },
+  {
+    title: "AI-Assisted Development Workflows",
+    description: "Leveraging advanced AI coding agents, semantic search tools, and automated verification systems to maximize build speed and reliability.",
+  },
+  {
+    title: "LLM-Powered User Experiences",
+    description: "Crafting modern user flows like natural language search, real-time agent responses, adaptive UI generation, and chat-to-action interactions.",
+  },
+];
+
