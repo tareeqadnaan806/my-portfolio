@@ -158,7 +158,7 @@ export default function Home() {
             </div>
             <div className="relative h-full w-full overflow-hidden rounded-lg border-2 border-zinc-950 shadow-[12px_12px_0_#22d3ee] dark:border-white dark:shadow-[12px_12px_0_#d946ef]">
               <Image
-                src="/myimage2.jpeg"
+                src="/my_image.png"
                 alt="Mohammad Tareeq Adnaan"
                 fill
                 className="object-cover object-top"
