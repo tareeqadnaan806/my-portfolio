@@ -80,6 +80,27 @@ export const education = [
   },
 ];
 
+export const certifications = [
+  {
+    title: "ReactJS Certification",
+    description: "Naresh i Technologies",
+    actionLabel: "Certificate",
+    certificateImage: "/nareshIT.jpeg",
+    certificatePdf: "/nareshIT.pdf",
+  },
+  {
+    title: "Generative AI & ChatGPT Prompt Engineering",
+    description:
+      "Completed a course focused on writing effective prompts for optimal responses.",
+  },
+  {
+    title: "Technical Blogging",
+    description: 'Authored a blog on "Mastering ReactJS".',
+    actionLabel: "Read Blog",
+    href: "https://medium.com/@tareeqadnaan806/mastering-react-a-comprehensive-guide-1befaaf8fc2c",
+  },
+];
+
 export const exploring = [
   {
     title: "Generative AI Applications",
@@ -94,4 +115,3 @@ export const exploring = [
     description: "Crafting modern user flows like natural language search, real-time agent responses, adaptive UI generation, and chat-to-action interactions.",
   },
 ];
-

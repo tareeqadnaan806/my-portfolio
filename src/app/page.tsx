@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   ArrowUpRight,
-  Braces,
+  Award,
+  BookOpenText,
   Code2,
   Mail,
   MapPin,
+  MessageSquareText,
   Network,
   Rocket,
   Zap,
@@ -22,9 +24,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MotionCard } from "@/components/MotionCard";
 import { Section } from "@/components/Section";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { education, experience, profile, projects, skills, exploring } from "@/data/portfolio";
+import { certifications, education, experience, profile, projects, skills, exploring } from "@/data/portfolio";
 
-const navItems = ["about", "skills", "exploring", "projects", "experience", "education", "contact"];
+const navItems = ["about", "skills", "exploring", "projects", "experience", "education", "certifications", "contact"];
 const stats = [
   ["03", "Years building"],
   ["12+", "Interfaces shipped"],
@@ -34,6 +36,37 @@ const stats = [
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
+
+  useEffect(() => {
+    const syncCertificateModalFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      setIsCertificateModalOpen(params.get("certificate") === "reactjs");
+    };
+
+    syncCertificateModalFromUrl();
+    window.addEventListener("popstate", syncCertificateModalFromUrl);
+
+    return () => {
+      window.removeEventListener("popstate", syncCertificateModalFromUrl);
+    };
+  }, []);
+
+  const openCertificateModal = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("certificate", "reactjs");
+    url.hash = "certifications";
+    window.history.pushState(null, "", url);
+    setIsCertificateModalOpen(true);
+  };
+
+  const closeCertificateModal = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("certificate");
+    url.hash = "certifications";
+    window.history.pushState(null, "", url);
+    setIsCertificateModalOpen(false);
+  };
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -433,6 +466,64 @@ export default function Home() {
         </div>
       </Section>
 
+      <Section
+        id="certifications"
+        eyebrow="Certifications"
+        title="Professional development and published learning."
+      >
+        <div className="grid gap-5 lg:grid-cols-3">
+          {certifications.map((item, index) => {
+            const Icon =
+              index === 0 ? Award : index === 1 ? MessageSquareText : BookOpenText;
+
+            return (
+              <MotionCard
+                key={item.title}
+                delay={index * 0.08}
+                className="flex h-full flex-col rounded-lg border-2 border-zinc-950 bg-white p-6 shadow-[8px_8px_0_rgba(24,24,27,0.9)] dark:border-white dark:bg-white/[0.08] dark:shadow-[8px_8px_0_rgba(34,211,238,0.75)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="grid size-12 shrink-0 place-items-center rounded-lg border-2 border-zinc-950 bg-lime-300 text-zinc-950 dark:border-white dark:bg-fuchsia-500 dark:text-white">
+                    <Icon size={22} />
+                  </div>
+                  <span className="rounded-lg border-2 border-zinc-950 bg-cyan-300 px-3 py-2 font-mono text-xs font-black uppercase tracking-[0.16em] text-zinc-950 dark:border-white">
+                    0{index + 1}
+                  </span>
+                </div>
+                <h3 className="mt-5 text-2xl font-black leading-tight text-zinc-950 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-3 flex-1 text-base font-medium leading-7 text-zinc-700 dark:text-zinc-300">
+                  {item.description}
+                </p>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-zinc-950 px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-fuchsia-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-lime-300 cursor-pointer"
+                  >
+                    {item.actionLabel} <ArrowUpRight size={17} />
+                  </a>
+                ) : item.certificateImage ? (
+                  <button
+                    type="button"
+                    onClick={openCertificateModal}
+                    className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg border-2 border-zinc-950 bg-yellow-300 px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-zinc-950 transition hover:-translate-y-0.5 hover:bg-lime-300 dark:border-white cursor-pointer"
+                  >
+                    {item.actionLabel} <ArrowUpRight size={17} />
+                  </button>
+                ) : item.actionLabel ? (
+                  <span className="mt-6 inline-flex w-fit items-center rounded-lg border-2 border-zinc-950 bg-yellow-300 px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-zinc-950 dark:border-white">
+                    {item.actionLabel}
+                  </span>
+                ) : null}
+              </MotionCard>
+            );
+          })}
+        </div>
+      </Section>
+
       <Section id="contact" eyebrow="Contact" title="Ready to make it loud and useful?">
         <MotionCard className="rounded-lg border-2 border-zinc-950 bg-[linear-gradient(135deg,#18181b,#27272a)] p-6 text-white shadow-[10px_10px_0_#22d3ee] sm:p-8 dark:border-white dark:shadow-[10px_10px_0_#a3e635]">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
@@ -475,6 +566,56 @@ export default function Home() {
       </footer>
 
       <AnimatePresence>
+        {isCertificateModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 p-4 backdrop-blur-sm dark:bg-zinc-950/80"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              className="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-xl border-4 border-zinc-950 bg-white shadow-[12px_12px_0_#000] dark:border-white dark:bg-zinc-900"
+            >
+              <div className="flex items-center justify-between gap-3 border-b-4 border-zinc-950 bg-lime-300 p-4 dark:border-white dark:bg-zinc-800">
+                <span className="font-mono text-xs font-black uppercase tracking-[0.16em] text-zinc-950 dark:text-white">
+                  ReactJS Certification - Naresh i Technologies
+                </span>
+                <div className="flex shrink-0 items-center gap-3">
+                  <a
+                    href="/nareshIT.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-8 items-center justify-center gap-1.5 rounded bg-zinc-950 px-3 text-[10px] font-black uppercase tracking-[0.12em] text-white transition hover:-translate-y-0.5 hover:bg-zinc-800 active:translate-y-0 dark:bg-white dark:text-zinc-950"
+                  >
+                    PDF <Download size={12} />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={closeCertificateModal}
+                    className="grid size-8 place-items-center rounded-lg border-2 border-zinc-950 bg-white text-zinc-950 hover:bg-red-400 dark:border-white dark:bg-zinc-700 dark:text-white"
+                    aria-label="Close certificate preview"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex-1 overflow-auto bg-zinc-100 p-3 dark:bg-zinc-800 sm:p-5">
+                <Image
+                  src="/nareshIT.jpeg"
+                  alt="ReactJS Certification from Naresh i Technologies"
+                  width={1287}
+                  height={994}
+                  className="mx-auto h-auto max-h-[72vh] w-auto rounded-lg border border-zinc-300 bg-white object-contain shadow-lg dark:border-zinc-700"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {isResumeModalOpen && (
           <motion.div
             initial={{ opacity: 0 }}
